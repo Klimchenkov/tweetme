@@ -149,9 +149,6 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 
 
 STATICFILES_STORAGE = 'tweetme2.storage.WhiteNoiseStaticFilesStorage'
-# WHITENOISE_USE_FINDERS = True
-# WHITENOISE_MANIFEST_STRICT = False
-# WHITENOISE_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_ALL_ORIGINS = True 
 CORS_URLS_REGEX = r'^/api/.*$'
