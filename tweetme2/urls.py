@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 
+
 from accounts.views import (
     login_view,
     logout_view,
@@ -28,6 +29,7 @@ urlpatterns = [
     re_path(r'profiles?/', include('profiles.urls')),
     path('api/tweets/', include('tweets.api.urls')),
     re_path(r'api/profiles?/', include('profiles.api.urls')),
+ 
 ]
 
 if settings.DEBUG:
