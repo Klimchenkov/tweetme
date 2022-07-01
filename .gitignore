@@ -131,4 +131,4 @@ dist
 
 produsers.txt
 
-db.sqlite3
+*.sqlite3
