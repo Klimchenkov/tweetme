@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn blisting.wsgi
+web: gunicorn tweetme2.wsgi
