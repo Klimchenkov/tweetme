@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'nl_l1r2jp2qlue@annlz8z0=*--j$(b536-s&_5$h28(d@-hpm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.tweetme-kli.herokuapp.com']
 LOGIN_URL = "/login"
