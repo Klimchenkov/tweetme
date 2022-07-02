@@ -9,6 +9,8 @@ export function TweetsList(props) {
     const [tweets, setTweets] = useState([])
     const [nextUrl, setNextUrl] = useState(null)
     const [tweetsDidSet, setTweetsDidSet] = useState(false)
+    const ref = useRef(null);
+    const Obs = useObserver(ref)
     useEffect(()=>{
         const final = [...props.newTweets].concat(tweetsInit)
         if (final.length !== tweets.length) {
@@ -56,31 +58,7 @@ export function TweetsList(props) {
             apiTweetList(props.username, handleLoadNextResponse, nextUrl)
         }
     }
-    // 
-    //  trying infinite scrolling
- 
-    const ref = useRef(null);
-    const Obs = useObserver(ref)
-    // useEffect(()=>{
-    //     const observer = new IntersectionObserver(
-    //         ([entry]) => {
-    //           if (entry.isIntersecting) {
-    //             entry.target.click()
-    //           }     
-    //         },
-    //         { 
-    //           root: null,
-    //           rootMargin: "0px", 
-    //           threshold: 0.1 
-    //         }
-    //       );
-        
-    //     if (ref.current) {
-    //         observer.observe(ref.current);
-    //       }
-    // }, [ref.current])
-    
-    // 
+
     return <React.Fragment>{tweets.map((item, index) => { 
               return <Tweet 
                 tweet={item}

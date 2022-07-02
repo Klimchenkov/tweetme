@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 
 # Create your views here.
 def login_view(request, *args, **kwargs):
@@ -31,7 +31,8 @@ def register_view(request, *args, **kwargs):
     form = UserCreationForm(request.POST or None)
     if form.is_valid():
         user = form.save(commit=True)
-        user.set_password(form.cleaned_data.get("password1"))
+        user = authenticate(username=form.cleaned_data['username'],
+                            password=form.cleaned_data['password1'])
         login(request, user)
         return redirect("/")
     context = {
