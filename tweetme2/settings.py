@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv, find_dotenv
+
+load_dotenv(find_dotenv())
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nl_l1r2jp2qlue@annlz8z0=*--j$(b536-s&_5$h28(d@-hpm'
+SECRET_KEY = os.environ["SECRET_KEY"]#'nl_l1r2jp2qlue@annlz8z0=*--j$(b536-s&_5$h28(d@-hpm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -41,6 +45,7 @@ INSTALLED_APPS = [
     # third-party
     'corsheaders',
     'rest_framework',
+    'storages',
     # internal
     'accounts',
     'profiles',
@@ -131,6 +136,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+# ----Yandex s3----
+DEFAULT_FILE_STORAGE = 'tweetme2.yandex_s3_storage.ClientDocsStorage'
+YANDEX_CLIENT_DOCS_BUCKET_NAME = os.environ['YANDEX_CLIENT_DOCS_BUCKET_NAME']
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_S3_ENDPOINT_URL = 'https://storage.yandexcloud.net'
+AWS_S3_REGION_NAME = 'storage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

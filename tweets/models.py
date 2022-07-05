@@ -4,6 +4,8 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from platformdirs import user_cache_dir
+from tweetme2.yandex_s3_storage import ClientDocsStorage
+
 
 User = settings.AUTH_USER_MODEL
 
@@ -39,7 +41,7 @@ class Tweet(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE, related_name="tweets")
     likes = models.ManyToManyField(User, related_name='tweet_user', blank=True, through=TweetLike)
     content = models.TextField(blank=True, null=True)
-    image = models.ImageField(upload_to="images/", blank=True, null=True)
+    image = models.ImageField(storage=ClientDocsStorage(), upload_to='tweetme/tweet_img', blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     
     objects = TweetManager()

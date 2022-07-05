@@ -11,7 +11,8 @@ def login_view(request, *args, **kwargs):
         return redirect("/")
     context = {"form": form,
                "btn_label": "Login",
-               "title": "Login"
+               "title": "Login",
+               "isLogin": True
                }
     return render(request, "accounts/auth.html", context)
 
