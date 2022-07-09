@@ -27,6 +27,7 @@ def profile_update_view(request, *args, **kwargs):
         user.email = email
         user.save()
         profile_obj.save()
+        return redirect("/alltweets")
     context = {
         "form": form,
         "btn_label": "Save",
