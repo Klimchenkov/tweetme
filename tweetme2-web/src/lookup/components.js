@@ -18,8 +18,8 @@ function getCookie(name) {
 export function backendLookup(method, endpoint, callback, data) {
   let Data;
   const xhr = new XMLHttpRequest()
-  const url = `http://localhost:8000/api${endpoint}`
-  // const url = `/api${endpoint}`
+  // const url = `http://localhost:8000/api${endpoint}`
+  const url = `/api${endpoint}`
   xhr.open(method, url)
   if (data) {
     if (data instanceof FormData) {
