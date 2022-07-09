@@ -13,6 +13,11 @@ class TweetLike(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     tweet = models.ForeignKey("Tweet",on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+    
+class CommentLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey("Comment", on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
 class TweetQuerySet(models.QuerySet):
     def by_username(self, username):
@@ -37,7 +42,7 @@ class TweetManager(models.Manager):
 
 
 class Tweet(models.Model):
-    parent = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User,on_delete=models.CASCADE, related_name="tweets")
     likes = models.ManyToManyField(User, related_name='tweet_user', blank=True, through=TweetLike)
     content = models.TextField(blank=True, null=True)
@@ -57,3 +62,28 @@ class Tweet(models.Model):
     @property
     def is_retweet(self):
         return self.parent != None
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
+    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE, related_name="comments")
+    parent = models.ForeignKey("self", related_name="sub_comments", blank=True, null=True, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(User, related_name="comment_user", blank = True, through=CommentLike)
+    comment = models.TextField(blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True, blank=True)
+    updated = models.DateTimeField(auto_now=True, blank=True)
+    
+    def __str__(self):
+        if self.comment is None:
+            return "This comment is blank"
+        return self.comment
+        
+    class Meta:
+        ordering = ['-updated']
+        
+    @property
+    def has_reply(self):
+        return self.sub_comments.exists()
+
+    
+ 
+    

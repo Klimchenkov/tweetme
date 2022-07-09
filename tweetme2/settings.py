@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.tweetme-kli.herokuapp.com']
 LOGIN_URL = "/login"
 MAX_TWEET_LENGTH = 240
 TWEET_ACTION_OPTIONS = ["like", "unlike", "retweet"]
+COMMENT_ACTION_OPTIONS = ["like", "unlike", "reply", "update"]
 
 # Application definition
 

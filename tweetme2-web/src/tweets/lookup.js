@@ -37,3 +37,22 @@ export function apiTweetList(username, callback, nextUrl) {
       }
       backendLookup('GET', endpoint, callback)
     }
+
+export function apiCreateComment(tweetId, comment, callback){
+      const data = {tweet_id: tweetId, comment: comment}
+      backendLookup("POST", "/tweets/create_comment/", callback, data)
+  }
+
+export function apiCommentAction(commentId, action, comment, callback){
+    const data = {comment_id: commentId, action:action, comment: comment}
+    backendLookup("POST", "/tweets/comment/action/", callback, data)
+}
+
+export function apiUpdateComment(commentId, comment, callback){
+    const data = {comment_id: commentId, comment: comment}
+    backendLookup("PUT", `/tweets/${commentId}/update_comment/`, callback, data)
+}
+
+export function apiDeleteComment(commentId, callback){
+    backendLookup("DELETE", `/tweets/${commentId}/delete_comment/`, callback)
+}

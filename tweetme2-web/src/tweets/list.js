@@ -63,8 +63,8 @@ export function TweetsList(props) {
               return <Tweet 
                 tweet={item}
                 didRetweet={handleDidRetweet} 
-                key={`${index}-${item.id}`} 
-                className='my-5 py-5 border bg-white text-dark'
+                key={`${item.id}`} 
+                className='my-3 py-4 border bg-white text-dark'
                 {...props} />
             })}
             

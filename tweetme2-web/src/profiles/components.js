@@ -16,8 +16,10 @@ export function UserDisplay (props) {
     const nameDisplay = includeFullName === true ? `${user.first_name} ${user.last_name} ` : null
     
     return <React.Fragment>
-        {nameDisplay}
-        {hideLink === true ? `@${user.username}` : <UserLink username={user.username}>@{user.username}</UserLink>}
+        <strong>
+            {nameDisplay}
+            {hideLink === true ? `@${user.username}` : <UserLink username={user.username}>@{user.username}</UserLink>}
+        </strong>
     </React.Fragment>
 }
 
@@ -25,7 +27,7 @@ export function UserPicture (props) {
     const {user, hideLink, className } = props
     const userIdSpan =  user.image ?
                         <img src={user.image} className={className}/>:
-                        <span className="mx-1 px-3 py-2 rounded-circle bg-dark text-white">
+                        <span className={className}>
                             {user.username[0]}
                         </span>
                         

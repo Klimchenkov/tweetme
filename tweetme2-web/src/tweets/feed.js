@@ -39,7 +39,6 @@ export function FeedList(props) {
         const updateFinalTweets = [...tweets]
         updateFinalTweets.unshift(newTweet)
         setTweets(updateFinalTweets)
-        
       }
 
     const handleLoadNext = (event) => {
@@ -61,7 +60,7 @@ export function FeedList(props) {
               return <Tweet 
                 tweet={item}
                 didRetweet={handleDidRetweet} 
-                key={`${index}-${item.id}`}
+                key={`${item.id}`}
                 className='my-5 py-5 border bg-white text-dark'
                 {...props}
                 />

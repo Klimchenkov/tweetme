@@ -1,5 +1,5 @@
 import React from "react";
-import { apiTweetAction } from "./lookup";
+import { apiCreateComment, apiTweetAction } from "./lookup";
 
 export function ActionBtn(props) {
     const {tweet, action, didPerformAction} = props
@@ -9,12 +9,20 @@ export function ActionBtn(props) {
     
     const handleActionBackendEvent = (response, status) => {
         if ((status === 200 || status === 201) && didPerformAction) {
-            didPerformAction(response, status)
+            didPerformAction(response, status, action.type)
         }
     }
     const handleClick = (event) => {
         event.preventDefault()
-        apiTweetAction(tweet.id, action.type, handleActionBackendEvent)
+        if (action.type === 'comment') {
+            const newComment = prompt("Leave your comment here")
+            if (newComment === null){
+                return
+            }
+            apiCreateComment(tweet.id, newComment, handleActionBackendEvent)
+        } else {
+            apiTweetAction(tweet.id, action.type, handleActionBackendEvent)
+        }
         }
     
     const display = action.type === 'like' ? `${likes} ${actionDisplay}` : `${actionDisplay}`

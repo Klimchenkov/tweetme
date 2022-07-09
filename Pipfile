@@ -31,6 +31,7 @@ boto3 = "*"
 django-storages = "*"
 django-environ = "*"
 python-dotenv = "*"
+djangorestframework-recursive = "*"
 
 [dev-packages]
 pylint = "*"
