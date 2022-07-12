@@ -36,6 +36,7 @@ export function Tweet(props) {
             } 
         } else if (action === 'comment') {
             setActionTweet(newActionTweet)
+            setShowComments('')
         } else if (status === 201) {
             setActionTweet(newActionTweet)
         }
@@ -96,7 +97,7 @@ export function Tweet(props) {
             })}
         </div>
     } 
-    {  !isRetweet &&   <div className='row'>
+    {  !isRetweet &&   <div className={'row' + Display}>
     {
             showComments === ' d-none' 
             ?

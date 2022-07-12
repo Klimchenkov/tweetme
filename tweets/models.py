@@ -2,7 +2,7 @@ import random
 from sqlite3 import Timestamp
 from django.conf import settings
 from django.db import models
-from django.db.models import Q
+from django.db.models import Count, Q
 from platformdirs import user_cache_dir
 from tweetme2.yandex_s3_storage import ClientDocsStorage
 
@@ -40,7 +40,6 @@ class TweetManager(models.Manager):
     def feed(self, user):
         return self.get_queryset().feed(user)
 
-
 class Tweet(models.Model):
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User,on_delete=models.CASCADE, related_name="tweets")
@@ -63,6 +62,11 @@ class Tweet(models.Model):
     def is_retweet(self):
         return self.parent != None
 
+class CommentManager(models.Manager):
+    def get_queryset(self, *args, **kwargs):
+        return super(CommentManager, self).get_queryset()\
+            .annotate(likes_count=Count('likes')).order_by('-likes_count')
+            
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")
     tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE, related_name="comments")
@@ -71,6 +75,8 @@ class Comment(models.Model):
     comment = models.TextField(blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, blank=True)
     updated = models.DateTimeField(auto_now=True, blank=True)
+    
+    objects = CommentManager()
     
     def __str__(self):
         if self.comment is None:

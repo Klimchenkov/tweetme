@@ -97,7 +97,7 @@ class TweetSerializer(serializers.ModelSerializer):
             'id', 
             'content',
             'comments', 
-            'likes',
+            'likes',            
             'image', 
             'is_retweet',
             'parent',
